@@ -4,6 +4,7 @@ const hideInput = document.getElementById("hide-input");
 const circleDiv = document.getElementById("circleDiv");
 const circleFront = document.querySelector(".progress-ring__circleFront");
 const radius = circleFront.r.baseVal.value;
+
 const circumference = radius * 2 * Math.PI;
 
 valueInput.addEventListener("input", () => {

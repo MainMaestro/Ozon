@@ -11,32 +11,34 @@
     <h1>Progress</h1>
     <div class="container">
       <div id="circleDiv">
-        <svg class="progress-ring" width="120" height="120">
+        <svg width="120" height="120">
           <circle
             class="progress-ring__circle progress-ring__circleBack"
             r="52"
-            stroke="gray"
           ></circle>
           <circle
             class="progress-ring__circle progress-ring__circleFront"
             r="52"
-            stroke="blue"
             stroke-dasharray="328"
             stroke-dashoffset="328"
           ></circle>
         </svg>
       </div>
-      <div>
-        <label for="animate-input">Animate</label>
-        <input type="checkbox" id="animate-input" />
-      </div>
-      <div>
-        <label for="value-input">Value</label>
-        <input id="value-input" type="number" min="0" max="100" />
-      </div>
-      <div>
-        <label for="hide-input">Hide</label>
-        <input type="checkbox" id="hide-input" />
+      <div class="toggles">
+        <div class="toggle">
+          <input type="checkbox" id="animate-input" hidden />
+          <label for="animate-input" class="button" ></label>
+          <span>Animate</span>
+        </div>
+        <div class="toggle">
+          <input id="value-input" class="" type="number" min="0" max="100" />
+          <span>Value</span>
+        </div>
+        <div class="toggle">
+          <input type="checkbox" id="hide-input" hidden/>
+          <label for="hide-input" class="button"></label>
+          <span>Hide</span>
+        </div>
       </div>
     </div>
   </body>
