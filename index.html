@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ozon</title>
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <h1>Progress</h1>
+    <div class="container">
+      <div id="circleDiv">
+        <svg class="progress-ring" width="120" height="120">
+          <circle
+            class="progress-ring__circle progress-ring__circleBack"
+            r="52"
+            stroke="gray"
+          ></circle>
+          <circle
+            class="progress-ring__circle progress-ring__circleFront"
+            r="52"
+            stroke="blue"
+            stroke-dasharray="328"
+            stroke-dashoffset="328"
+          ></circle>
+        </svg>
+      </div>
+      <div>
+        <label for="animate-input">Animate</label>
+        <input type="checkbox" id="animate-input" />
+      </div>
+      <div>
+        <label for="value-input">Value</label>
+        <input id="value-input" type="number" min="0" max="100" />
+      </div>
+      <div>
+        <label for="hide-input">Hide</label>
+        <input type="checkbox" id="hide-input" />
+      </div>
+    </div>
+  </body>
+</html>
