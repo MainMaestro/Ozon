@@ -1,35 +1,61 @@
-const animateInput = document.getElementById("animate-input");
-const valueInput = document.getElementById("value-input");
-const hideInput = document.getElementById("hide-input");
-const circleDiv = document.getElementById("circleDiv");
-const circleFront = document.querySelector(".progress-ring__circleFront");
-const radius = circleFront.r.baseVal.value;
+(() => {
+  const circleDiv = document.getElementById("circleDiv");
+  const circleFront = document.querySelector(".progress-ring__circleFront");
 
-const circumference = radius * 2 * Math.PI;
+  const radius = circleFront.r.baseVal.value;
+  const circumference = 2 * Math.PI * radius;
 
-valueInput.addEventListener("input", () => {
-  valueInput.value = valueInput.value.replace(/[^0-9]/g, "");
-  valueInput.value = Math.min(Math.max(0, parseInt(valueInput.value)), 100);
-});
+  circleFront.style.strokeDasharray = circumference;
+  circleFront.style.strokeDashoffset = circumference;
 
-circleFront.style.strokeDasharray = `${circumference} ${circumference}`;
-circleFront.style.strokeDashoffset = circumference;
-valueInput.addEventListener("change", () => {
-  setProgress(valueInput.value);
-});
+  const state = {
+    value: 0,
+    animate: false,
+    hidden: false,
+  };
 
-function setProgress(percent) {
-  const offset = circumference - (percent / 100) * circumference;
-  circleFront.style.strokeDashoffset = offset;
-}
-hideInput.addEventListener("change", () => {
-  circleDiv.style.display = hideInput.checked ? "none" : "block";
-});
+  const listeners = new Set();
 
-animateInput.addEventListener("change", () => {
-  if (animateInput.checked) {
-    circleFront.style.animation = "spin 2s linear infinite";
-  } else {
-    circleFront.style.animation = "";
-  }
-});
+  const emit = () => {
+    listeners.forEach((fn) => fn({ ...state }));
+  };
+
+  const subscribe = (fn) => {
+    listeners.add(fn);
+    fn({ ...state });
+    return () => listeners.delete(fn);
+  };
+
+
+  const setValue = (value) => {
+    state.value = Math.min(Math.max(0, value), 100);
+
+    const offset =
+      circumference - (state.value / 100) * circumference;
+
+    circleFront.style.strokeDashoffset = offset;
+    emit();
+  };
+
+  const setAnimate = (flag) => {
+    state.animate = Boolean(flag);
+    circleFront.style.animation = flag
+      ? "spin 2s linear infinite"
+      : "";
+    emit();
+  };
+
+  const setHidden = (flag) => {
+    state.hidden = Boolean(flag);
+    circleDiv.style.display = flag ? "none" : "block";
+    emit();
+  };
+
+  window.Progress = {
+    setValue,
+    setAnimate,
+    setHidden,
+    getState: () => ({ ...state }),
+    subscribe,
+  };
+})();

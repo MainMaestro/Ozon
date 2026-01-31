@@ -5,7 +5,14 @@ body {
   height: 100%;
   width: 100%;
 }
-
+input[type="checkbox"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
 h1 {
   position: absolute;
   margin: 0;

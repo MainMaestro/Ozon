@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ozon</title>
     <link rel="stylesheet" href="style.css" />
-    <script defer src="app.js"></script>
+   
   </head>
   <body>
     <h1>Progress</h1>
@@ -26,8 +26,8 @@
       </div>
       <div class="toggles">
         <div class="toggle">
-          <input type="checkbox" id="animate-input" hidden />
-          <label for="animate-input" class="button" ></label>
+          <input type="checkbox" id="animate-input" />
+          <label for="animate-input" class="button"></label>
           <span>Animate</span>
         </div>
         <div class="toggle">
@@ -35,11 +35,34 @@
           <span>Value</span>
         </div>
         <div class="toggle">
-          <input type="checkbox" id="hide-input" hidden/>
+          <input type="checkbox" id="hide-input" />
           <label for="hide-input" class="button"></label>
           <span>Hide</span>
         </div>
       </div>
     </div>
+     <script src="app.js" ></script>
+    <script >
+      const animateInput = document.getElementById("animate-input");
+      const valueInput = document.getElementById("value-input");
+      const hideInput = document.getElementById("hide-input");
+      hideInput.addEventListener("change", (e) => {
+        console.log("Hide input", e);
+        window.Progress.setHidden(e.target.checked);
+      });
+
+      animateInput.addEventListener("change", (e) => {
+        window.Progress.setAnimate(e.target.checked);
+      });
+
+      valueInput.addEventListener("change", (e) => {
+        window.Progress.setValue(+e.target.value);
+      });
+      Progress.subscribe((state) => {
+        animateInput.checked = state.animate;
+        valueInput.value = state.value;
+        hideInput.checked = state.hidden;
+      });
+    </script>
   </body>
 </html>
